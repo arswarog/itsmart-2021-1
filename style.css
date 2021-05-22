@@ -1,0 +1,13 @@
+#list {
+
+}
+
+.item {
+    list-style-type: none;
+    border: 1px solid grey;
+    background-color: lightgrey;
+    position: absolute;
+    transition: top 0.5s;
+    width: 20px;
+    height: 19px;
+}
