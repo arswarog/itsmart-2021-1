@@ -3,10 +3,25 @@ const arr = [1, 8, 5, 9, 2, 11, 12, 0];
 const root = document.getElementById('list')
 const list = init(root, arr);
 
-view(list, arr);
-setTimeout(() => view(list, [1, 5, 8, 9, 2, 11, 12, 0]), 1000)
-setTimeout(() => view(list, [1, 5, 8, 2, 9, 11, 12, 0]), 2000)
-setTimeout(() => view(list, [1, 5, 8, 2, 9, 11, 0, 12]), 3000)
+run(sort(arr));
+
+function* sort(arr) {
+    yield arr;
+    yield [1, 5, 8, 9, 2, 11, 12, 0];
+    yield [1, 5, 8, 2, 9, 11, 12, 0];
+    yield [1, 5, 8, 2, 9, 11, 0, 12];
+}
+
+function run(h) {
+    const timer = setInterval(() => {
+        const result = h.next();
+        console.log(result);
+        view(list, result.value);
+        if (result.done) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
 
 function init(root, arr) {
     const list = [];
