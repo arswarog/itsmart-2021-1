@@ -26,6 +26,13 @@ function view(list, arr) {
     for (let index = 0; index < arr.length; index++) {
         const item = arr[index];
         const el = list.find(e => e.dataset.value == item);
-        el.style.top = `${index * 20 + 20}px`;
+        const top = `${index * 20 + 20}px`
+        if (top !== el.style.top)
+            el.classList.add('focus');
+        el.style.top = top;
+
+        setTimeout(() => {
+            el.classList.remove('focus');
+        }, 900);
     }
 }
