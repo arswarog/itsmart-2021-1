@@ -6,6 +6,7 @@ run(sort(arr));
 
 function* sort(arr) {
     for (let j = 0; j < arr.length; j++) {
+        bigLoop(arr);
         for (let i = 1; i < arr.length; i++) {
             yield select(i - 1, i);
             if (arr[i - 1] > arr[i]) {

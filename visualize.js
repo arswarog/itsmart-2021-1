@@ -1,5 +1,7 @@
 const root = document.getElementById('list');
 let list = [];
+let loops = 0;
+let loopsEl = document.getElementById('loops');
 
 const next = document.getElementById('next');
 
@@ -27,6 +29,7 @@ function init(arr) {
         el.className = 'item';
         el.dataset.value = item;
         el.style.top = '0px';
+        el.style.left = '10px';
         list.push(el);
     }
     root.style.height = `${arr.length * 20 + 20}px`;
@@ -66,5 +69,17 @@ function select(...items) {
 function clean() {
     for (let index = 0; index < list.length; index++) {
         list[index].classList.remove('focus');
+    }
+}
+
+function bigLoop(arr) {
+    loops++;
+    loopsEl.innerHTML = loops;
+    clean();
+    for (let index = 0; index < list.length; index++) {
+        const item = list[index].cloneNode(true);
+        list[index] = item;
+        root.appendChild(item);
+        item.style.left = `${loops * 50 + 10}px`;
     }
 }

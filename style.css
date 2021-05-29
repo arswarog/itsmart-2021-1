@@ -7,7 +7,7 @@
     border: 1px solid grey;
     background-color: lightgrey;
     position: absolute;
-    transition: 0.5s top 0.5s;
+    transition: all 0.5s;
     width: 20px;
     height: 19px;
 }
