@@ -14,7 +14,6 @@ function run(h) {
 
     next.addEventListener('click', nextHandler);
     window.addEventListener('keydown', event => {
-        console.log(event);
         if (event.code === 'Space')
             nextHandler();
     });
@@ -56,13 +55,17 @@ function view(arr) {
         el.style.top = `${index * 20 + 60}px`;
     }
     list = newList;
-    console.log(list);
 }
 
-function select(...items) {
+function select(items) {
     clean();
     for (let index = 0; index < items.length; index++) {
-        list[items[index]].classList.add('focus');
+        const value = items[index]
+        const el = list.find(elItem => elItem.dataset.value == value)
+        if (el)
+            el.classList.add('focus');
+        else
+            console.warn(`${items[index]} not found`)
     }
 }
 
