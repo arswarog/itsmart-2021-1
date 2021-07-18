@@ -16,4 +16,13 @@
  * @property {number} studentId ID студента (внешний ключ на Student)
  * @property {string} date Дата выставления оценки
  * @property {number} mark Оценка
+ * @property {number} subjectId ID предмета (внешний ключ на Subject)
  */
+
+/**
+ * Информация об предмете
+ * @typedef {Object} Subject
+ * @property {number} id Первичный ключ
+ * @property {string} title Название
+ */
+

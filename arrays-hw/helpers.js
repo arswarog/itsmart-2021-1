@@ -19,12 +19,20 @@ function getFIOShort(student) {
 }
 
 /**
+ * 
+ * @param {string} group 
+ */
+function getStudentByGroup(group) {
+   return (student) => student.group === group;
+}
+
+/**
  * Вычисление среднего арифметического
  * @param {Array<number>} data массив чисел
  * @return {number} среднее арифметическое
  */
 function average(data) {
-    const sum = data.reduce((acc, item) => acc + item);
+    const sum = data.reduce((acc, item) => acc + item, 0);
     return sum / data.length;
 }
 

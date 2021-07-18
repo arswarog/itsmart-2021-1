@@ -50,3 +50,51 @@ function numberOfFive(group) {
         .length
 }
 console.log(numberOfFive("ФК-071"))
+
+/**
+ *
+ * @param {Student[]} student
+ * @returns {string[]}
+ */
+function makeGroupList(student) {
+    return allStudents
+        .map(student => student.group)
+        .reduce(
+            (groups, item) => {
+                if (!groups.includes(item))
+                    groups.push(item)
+                return groups;
+            },
+            []
+        );
+}
+
+function averageMarkByStudent(student) {
+    return average(
+        allMarks
+            .filter(markByStudent(student))
+            .map(mark => mark.mark)
+    )
+}
+
+console.log(averageMarkByStudent(allStudents[0]));
+
+function findTheBestGroup() {
+    const groupList = makeGroupList(allStudents)
+    const tmp = groupList
+        .map(group => {
+            return {
+                group: group,
+                average: average(
+                    allStudents
+                        .filter(getStudentByGroup(group))
+                        .map(student => averageMarkByStudent(student))
+                )
+            }
+        })
+        .sort((a, b) => b.average - a.average)
+    console.log(tmp)
+}
+
+
+findTheBestGroup();
