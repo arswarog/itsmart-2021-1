@@ -17,7 +17,7 @@
  * @typedef {Object} Reis
  * @property {number} id Первичный ключ
  * @property {number} trainId ID поезда
- * @property {number} routeId ID маршрута
+ * @property {string} routeId ID маршрута
  * @property {string} date Дата отправления
  */
 
