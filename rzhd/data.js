@@ -2,7 +2,7 @@
  * Список станций
  * @type {Station[]}
  */
- const stations = [
+ const allStations = [
     stationFactory('Москва'),
     stationFactory('Новосибирск'),
     stationFactory('Екатеринбург'),
@@ -16,7 +16,7 @@
  * Список маршрутов
  * @type {Route[]}
  */
-const routes = [
+const allRoutes = [
     routeFactory("MV", [1, 3, 4, 7]),
     routeFactory("VM", [7, 4, 3, 1]),
     routeFactory("MP", [1, 2, 3, 5, 6]),
@@ -29,4 +29,16 @@ const routes = [
  * @type {Reis[]}
  */
 const allReises = [
+    {
+      id: 1,
+      trainId: 1,
+      routeId: 'PM',
+      date:'11/10/2010'  
+    },
+    {
+      id: 2,
+      trainId: 2,
+      routeId: 'MP',
+      date:'12/10/2010'  
+    },
 ];

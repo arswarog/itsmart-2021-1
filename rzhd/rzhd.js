@@ -46,7 +46,7 @@ function printRoute(route) {
  * @returns {Route[]}
  */
 function findRoutes(start, end) {
-    return routes
+    return allRoutes
         .filter(
             route => route.stations.includes(start) && route.stations.includes(end)
         )
@@ -78,16 +78,47 @@ function findReisesForPassengers(start, end, date) {
     const startStaion = findStation(start);
     const endStaion = findStation(end);
     const reises = findReises(startStaion.id, endStaion.id, date);
-    return reises.map((reis) => {
+    return reises
+    // .map((reis) => {
 
+    //     return {
+    //         reisId,
+    //         date,
+    //         trainType,
+    //         freeSits,
+    //         start,
+    //         end,
+    //     }
+    // });
+}
+/**
+ * Возвращает объект из массива stotions по имени станции
+ * @param {string} stationName 
+ * @returns {Station}
+ */
+function findStation(stationName) {
+    stationName = stationName.toLowerCase().trim();
+    return allStations.find((station) => station.name.toLowerCase() === stationName);
+}
 
-        return {
-            reisId,
-            date,
-            trainType,
-            freeSits,
-            start,
-            end,
-        }
-    });
+/**
+ * Возвращает функцию, которая фильтрует массив рейсов по маршрутам
+ * @param {Route[]} routes 
+ * @returns {function}
+ */
+function filterByRoutes(routes) {
+    /**
+     * Функция проверяет, идет ли рейс по маршруту из routes
+     */
+    return (reise) => routes
+        .find((route) => route.name === reise.routeId);
+}
+
+/**
+ * Возвращает функцию, которая проверяет идет ли рейс в указанную дату
+ * @param {string} date 
+ * @returns {function}
+ */
+function filterByDate(date) {
+   return (reise) => reise.date === date; 
 }

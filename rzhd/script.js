@@ -1,10 +1,10 @@
-const h = routes[0]
+const h = allRoutes[0]
 
-console.log(routes);
+console.log(allRoutes);
 
-printRoute(routes[2])
-printRoute(routes[3])
-printRoute(routes[4])
+printRoute(allRoutes[2])
+printRoute(allRoutes[3])
+printRoute(allRoutes[4])
 
 console.log(findReisesForPassengers(
     'Москва', 'Кисловодск',
