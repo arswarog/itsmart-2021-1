@@ -1,0 +1,14 @@
+{
+  "name": "itsmart-2021-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:arswarog/itsmart-2021-1.git",
+  "author": "Evgeny <arswarog@yandex.ru>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node rzhd/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

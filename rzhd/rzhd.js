@@ -1,4 +1,5 @@
 let _stationId = 1;
+let _reiseId = 1;
 
 /**
  * Фабрика станций
@@ -9,7 +10,7 @@ function stationFactory(name) {
     return {
         id: _stationId++,
         name
-    }
+    };
 }
 
 /**
@@ -31,7 +32,23 @@ function routeFactory(id, stations) {
         id,
         name: `${firstStation.name} - ${lastStation.name}`,
         stations
-    }
+    };
+}
+
+/**
+ * Создает объект рейса
+ * @param {string} routeId
+ * @param {string} date
+ * @param {number} trainId
+ * @return {Reis}
+ */
+function reisFactory(routeId, date, trainId = 0) {
+    return {
+        id: _reiseId++,
+        trainId,
+        routeId,
+        date,
+    };
 }
 
 /**
@@ -40,10 +57,10 @@ function routeFactory(id, stations) {
  *
  */
 function printRoute(route) {
-    console.log(`Route #${route.id} ${route.name}`)
+    console.log(`Route #${route.id} ${route.name}`);
     console.table(route.stations.map(
         (id) => allStations.find(item => item.id === id)
-    ))
+    ));
 }
 
 /**
@@ -60,7 +77,7 @@ function findRoutes(start, end) {
         )
         .filter(
             route => route.stations.indexOf(start) < route.stations.indexOf(end)
-        )
+        );
 }
 
 /**
@@ -90,34 +107,38 @@ function findReisesForPassengers(start, end, date) {
     try {
         const startStation = findStation(start);
         if (!startStation)
-            throw new Error('Неверная станция отправления')
+            throw new Error('Неверная станция отправления');
 
         const endStation = findStation(end);
         if (!endStation)
-            throw new Error('Неверная станция прибытия')
+            throw new Error('Неверная станция прибытия');
 
         const reises = findReises(startStation.id, endStation.id, date);
 
-        console.log(`Найденные рейсы по направлению ${startStation.name} - ${endStation.name} на дату ${date}`);
-        if (reises.length)
-            console.log(reises);
-        else
-            console.log('Ничего не найдено');
-        return reises
+        if (reises.length) {
+            const results = reises
+                .map((reis) => {
+                    return {
+                        reisId: reis.id,
+                        routeId: reis.routeId,
+                        route: findRouteById(reis.routeId),
+                        date: reis.date,
+                        start: startStation.name,
+                        end: startStation.name,
+                        trainId: reis.trainId,
+                    };
+                });
+            console.log(`На ${date} вы можете уехать из ${startStation.name} в ${endStation.name} на следующих поездах:`);
+            console.log(results.map((info, index) => ` ${index+1}: Маршрут ${info.route.id} сообщением ${info.route.name}`).join('\n'));
+            return results;
+        } else {
+            console.log(`На ${date} из ${startStation.name} в ${endStation.name} ничего не найдено`);
+        }
+        return reises;
     } catch (error) {
         alert('Извините, что-то пошло не так\n' + error.message);
         return [];
     }
-    // .map((reis) => {
-    //     return {
-    //         reisId,
-    //         date,
-    //         trainType,
-    //         freeSits,
-    //         start,
-    //         end,
-    //     }
-    // });
 }
 
 /**
@@ -138,6 +159,17 @@ function findStation(stationName) {
 function findStationById(stationId) {
     return allStations
         .find((item) => stationId === item.id);
+
+}
+
+/**
+ * Возвращает маршрут по id
+ * @param {string} routeId
+ * @returns {Route} route
+ */
+function findRouteById(routeId) {
+    return allRoutes
+        .find((item) => routeId === item.id);
 
 }
 

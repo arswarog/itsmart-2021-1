@@ -8,7 +8,8 @@
 /**
  * Информация о маршруте
  * @typedef {Object} Route
- * @property {string} name Номер маршрута (Первичный ключ)
+ * @property {string} id Номер маршрута (Первичный ключ)
+ * @property {string} name Название маршрута (например Москва - Волгоград)
  * @property {number[]} stations Список станций
  */
 
