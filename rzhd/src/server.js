@@ -4,6 +4,11 @@ const port = 3000
 
 app.use(express.static('rzhd'));
 
+app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', 'null');
+    next();
+})
+
 app.get('/', (req, res) => {
     res.redirect('/index.html')
 })
