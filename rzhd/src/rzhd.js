@@ -124,12 +124,14 @@ function findReisesForPassengers(start, end, date) {
                         route: findRouteById(reis.routeId),
                         date: reis.date,
                         start: startStation.name,
-                        end: startStation.name,
+                        end: endStation.name,
+                        startId: startStation.id,
+                        endId: endStation.id,
                         trainId: reis.trainId,
                     };
                 });
             console.log(`На ${date} вы можете уехать из ${startStation.name} в ${endStation.name} на следующих поездах:`);
-            console.log(results.map((info, index) => ` ${index+1}: Маршрут ${info.route.id} сообщением ${info.route.name}`).join('\n'));
+            console.log(results.map((info, index) => ` ${index + 1}: Маршрут ${info.route.id} сообщением ${info.route.name}`).join('\n'));
             return results;
         } else {
             console.log(`На ${date} из ${startStation.name} в ${endStation.name} ничего не найдено`);
@@ -193,4 +195,39 @@ function filterByRoutes(routes) {
  */
 function filterByDate(date) {
     return (reise) => reise.date === date;
+}
+
+let ticketId = 0;
+/**
+ * Покупка билета
+ * @param {string} start 
+ * @param {string} end 
+ * @param {string} date 
+ * @param {string} routeId 
+ * @param {string} fio 
+ * @returns Ticket
+ */
+function buyTicket(start, end, date, routeId, fio) {
+    // проверить рейс и наличие места
+    const availableReises = findReisesForPassengers(start, end, date);
+    const reis = availableReises.find(item => item.routeId === routeId);
+    if (!reis)
+        throw new Error('Рейса не существует')
+
+    // зарегестрировать пользователя
+
+    // зарезервировать билет
+    /**
+     * @var Ticket
+     */
+    const ticket = {
+        id: ++ticketId,
+        reisId: reis.reisId,
+        startStationId: reis.startId ,
+        endStationId: reis.endId,
+        sitNumber: 0, // todo
+        passengerId: fio, // todo
+    }
+
+    return ticket;
 }
