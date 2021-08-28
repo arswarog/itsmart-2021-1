@@ -6,7 +6,7 @@
   "author": "Evgeny <arswarog@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "start": "node rzhd/server.js"
+    "start": "node rzhd/src/server.js"
   },
   "dependencies": {
     "express": "^4.17.1"
