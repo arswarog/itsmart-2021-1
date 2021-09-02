@@ -70,8 +70,8 @@ function printRoute(route) {
  * @param {number} end Станция прибытия
  * @returns {Route[]}
  */
-function findRoutes(start, end) {
-    return allRoutes
+function findRoutes(routes, start, end) {
+    return routes
         .filter(
             route => route.stations.includes(start) && route.stations.includes(end)
         )
@@ -86,60 +86,14 @@ function findRoutes(start, end) {
  * @param {number} end
  * @param {string} date
  */
-function findReises(start, end, date) {
+function findReises(routes, reises, start, end, date) {
     try {
-        const routes = findRoutes(start, end);
-        return allReises
-            .filter(filterByRoutes(routes))
+        const foundRoutes = findRoutes(routes, start, end);
+        return reises
+            .filter(filterByRoutes(foundRoutes))
             .filter(filterByDate(date));
     } catch (e) {
         throw new Error('Ошибка при поиске рейса\n' + e.message);
-    }
-}
-
-/**
- * Поиск рейсов (для отображения пользователю)
- * @param {string} start Название станции отправления
- * @param {string} end Название станции прибытия
- * @param {string} date Дата отправления
- */
-function findReisesForPassengers(start, end, date) {
-    try {
-        const startStation = findStation(start);
-        if (!startStation)
-            throw new Error('Неверная станция отправления');
-
-        const endStation = findStation(end);
-        if (!endStation)
-            throw new Error('Неверная станция прибытия');
-
-        const reises = findReises(startStation.id, endStation.id, date);
-
-        if (reises.length) {
-            const results = reises
-                .map((reis) => {
-                    return {
-                        reisId: reis.id,
-                        routeId: reis.routeId,
-                        route: findRouteById(reis.routeId),
-                        date: reis.date,
-                        start: startStation.name,
-                        end: endStation.name,
-                        startId: startStation.id,
-                        endId: endStation.id,
-                        trainId: reis.trainId,
-                    };
-                });
-            console.log(`На ${date} вы можете уехать из ${startStation.name} в ${endStation.name} на следующих поездах:`);
-            console.log(results.map((info, index) => ` ${index + 1}: Маршрут ${info.route.id} сообщением ${info.route.name}`).join('\n'));
-            return results;
-        } else {
-            console.log(`На ${date} из ${startStation.name} в ${endStation.name} ничего не найдено`);
-        }
-        return reises;
-    } catch (error) {
-        alert('Извините, что-то пошло не так\n' + error.message);
-        return [];
     }
 }
 
@@ -223,11 +177,82 @@ function buyTicket(start, end, date, routeId, fio) {
     const ticket = {
         id: ++ticketId,
         reisId: reis.reisId,
-        startStationId: reis.startId ,
+        startStationId: reis.startId,
         endStationId: reis.endId,
         sitNumber: 0, // todo
         passengerId: fio, // todo
     }
 
+    allTickets.push(ticket);
+
     return ticket;
 }
+
+function createRzhdSystem(rzhdData) {
+    /**
+     * Поиск рейсов (для отображения пользователю)
+     * @param {string} start Название станции отправления
+     * @param {string} end Название станции прибытия
+     * @param {string} date Дата отправления
+     */
+    function findReisesForPassengers(start, end, date) {
+        try {
+            const startStation = findStation(rzhdData.stations, start);
+            if (!startStation)
+                throw new Error('Неверная станция отправления');
+
+            const endStation = findStation(rzhdData.stations, end);
+            if (!endStation)
+                throw new Error('Неверная станция прибытия');
+
+            const reises = findReises(rzhdData.routes, rzhdData.reises,
+                startStation.id, endStation.id, date);
+
+            if (reises.length) {
+                const results = reises
+                    .map((reis) => {
+                        return {
+                            reisId: reis.id,
+                            routeId: reis.routeId,
+                            route: findRouteById(reis.routeId),
+                            date: reis.date,
+                            start: startStation.name,
+                            end: endStation.name,
+                            startId: startStation.id,
+                            endId: endStation.id,
+                            trainId: reis.trainId,
+                        };
+                    });
+                console.log(`На ${date} вы можете уехать из ${startStation.name} в ${endStation.name} на следующих поездах:`);
+                console.log(results.map((info, index) => ` ${index + 1}: Маршрут ${info.route.id} сообщением ${info.route.name}`).join('\n'));
+                return results;
+            } else {
+                console.log(`На ${date} из ${startStation.name} в ${endStation.name} ничего не найдено`);
+            }
+            return reises;
+        } catch (error) {
+            alert('Извините, что-то пошло не так\n' + error.message);
+            return [];
+        }
+    }
+
+    return {
+        findReisesForPassengers,
+        buyTicket,
+    }
+}
+
+function createMyRzhd() {
+    return loadRzhdData()
+    .then(rzhdData => createRzhdSystem(rzhdData));
+} 
+
+loadRzhdData()
+.then(rzhdData => createRzhdSystem(rzhdData))
+.then(myRzhd => {
+    myRzhd.findReisesForPassengers()
+    myRzhd.buyTicket()    
+})
+
+
+

@@ -3,7 +3,8 @@ describe('РЖД', () => {
         it('Москва в Новосибирск на 19.08.2021', () => {
             // act
             const result = findReisesForPassengers(
-                'Москва', 'Новосибирск', '19.08.2021'
+                'Москва', 'Новосибирск', '19.08.2021',
+                [stationFactory('sdfdsf')]
             );
 
             // assert
@@ -50,6 +51,19 @@ describe('РЖД', () => {
             expect(ticket).to.property('reisId', 81)
             expect(ticket).to.property('startStationId', 2)
             expect(ticket).to.property('endStationId', 29)
+            expect(allTickets.length).to.eql(1)
+
+        });
+        it('Москва в Новосибирск на 19.08.2021, маршрут 222', () => {
+            // act
+            expect(() => buyTicket(
+                'Москва', 'Новосибирск', '19.08.2021',
+                '222',
+                'Иванов Иван Иванович'
+            )).to.throw('Рейса не существует');
+
+            // assert
+            expect(allTickets.length).to.eql(0)
         });
     });
 });
