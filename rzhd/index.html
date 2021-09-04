@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <title>Document</title>
+    <link href="style.css" rel="stylesheet" />
 </head>
+
 <body>
+    <div class="wrapper">
+        <div class="map">
+            <img src="./assets/map.png" />
+        </div>
+
+        <div class="stations">
+            <ol id="stations-list"></ol>
+        </div>
+    </div>
+
+    <template id="stations-list-item">
+        <li>
+            Станция
+            <b data-name="name">chupakabra</b>
+            <div class="id-value">
+                (id: <span data-name="id">elvis</span>)
+            </div>
+        </li>
+    </template>
+
+    <script src="src/utils.js"></script>
     <script src="src/rzhd.js"></script>
     <script src="src/data.js"></script>
     <script src="src/script.js"></script>
-<!--    <script src="sheduller.js"></script>-->
+    <script src="src/ui.js"></script>
+    <!--    <script src="sheduller.js"></script>-->
 </body>
+
 </html>

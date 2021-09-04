@@ -22,7 +22,6 @@ function makeStationFactory() {
  * @returns Route
  */
 function routeFactory(stations, id, routeStations) {
-    console.log(stations);
     routeStations.forEach(id => {
         if (!findStationById(stations, id))
             throw new Error(`Станции ${id} не существует`);
