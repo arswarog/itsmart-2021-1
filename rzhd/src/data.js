@@ -1,8 +1,11 @@
 function loadRzhdData() {
+    const stationFactory = makeStationFactory();
+    const reisFactory = makeReisFactory();
+    
     /**
- * Список станций
- * @type {Station[]}
- */
+     * Список станций
+     * @type {Station[]}
+     */
     const stations = [
         stationFactory('Санкт-Петербург'),
         stationFactory('Москва'),
@@ -47,26 +50,26 @@ function loadRzhdData() {
      * @type {Route[]}
      */
     const routes = [
-        routeFactory('101', [1, 2]),
-        routeFactory('102', [2, 1]),
-        routeFactory('201', [1, 2, 4, 7, 6, 11, 15]),
-        routeFactory('202', [15, 11, 6, 7, 4, 2, 1]),
-        routeFactory('221', [1, 2, 5, 8, 22, 21, 26, 27, 29, 32]),
-        routeFactory('222', [32, 29, 27, 26, 21, 22, 8, 5, 2, 1]),
-        routeFactory('223', [1, 2, 5, 8, 23, 24, 27, 29, 33, 34, 35, 36]),
-        routeFactory('224', [36, 35, 34, 33, 29, 27, 24, 23, 8, 5, 2, 1]),
-        routeFactory('351', [3, 2, 6, 17, 18, 19]),
-        routeFactory('352', [19, 18, 17, 6, 2, 3]),
-        routeFactory('357', [5, 9, 14, 17, 18, 19]),
-        routeFactory('358', [19, 18, 17, 14, 9, 5]),
-        routeFactory('383', [6, 9, 12, 16, 22, 10, 23, 24, 25, 27, 28, 30, 31, 33]),
-        routeFactory('384', [33, 31, 30, 28, 27, 25, 24, 23, 10, 22, 16, 12, 9, 6]),
-        routeFactory('411', [11, 17, 16, 21, 24, 27, 29]),
-        routeFactory('412', [29, 27, 24, 21, 16, 17, 11]),
-        routeFactory('413', [15, 11, 17, 14, 13, 16, 20, 26, 24, 25]),
-        routeFactory('414', [25, 24, 26, 20, 16, 13, 14, 17, 11, 15]),
-        routeFactory('515', [29, 31, 33, 34, 35, 36]),
-        routeFactory('516', [36, 35, 34, 33, 31, 29]),
+        routeFactory(stations, '101', [1, 2]),
+        routeFactory(stations, '102', [2, 1]),
+        routeFactory(stations, '201', [1, 2, 4, 7, 6, 11, 15]),
+        routeFactory(stations, '202', [15, 11, 6, 7, 4, 2, 1]),
+        routeFactory(stations, '221', [1, 2, 5, 8, 22, 21, 26, 27, 29, 32]),
+        routeFactory(stations, '222', [32, 29, 27, 26, 21, 22, 8, 5, 2, 1]),
+        routeFactory(stations, '223', [1, 2, 5, 8, 23, 24, 27, 29, 33, 34, 35, 36]),
+        routeFactory(stations, '224', [36, 35, 34, 33, 29, 27, 24, 23, 8, 5, 2, 1]),
+        routeFactory(stations, '351', [3, 2, 6, 17, 18, 19]),
+        routeFactory(stations, '352', [19, 18, 17, 6, 2, 3]),
+        routeFactory(stations, '357', [5, 9, 14, 17, 18, 19]),
+        routeFactory(stations, '358', [19, 18, 17, 14, 9, 5]),
+        routeFactory(stations, '383', [6, 9, 12, 16, 22, 10, 23, 24, 25, 27, 28, 30, 31, 33]),
+        routeFactory(stations, '384', [33, 31, 30, 28, 27, 25, 24, 23, 10, 22, 16, 12, 9, 6]),
+        routeFactory(stations, '411', [11, 17, 16, 21, 24, 27, 29]),
+        routeFactory(stations, '412', [29, 27, 24, 21, 16, 17, 11]),
+        routeFactory(stations, '413', [15, 11, 17, 14, 13, 16, 20, 26, 24, 25]),
+        routeFactory(stations, '414', [25, 24, 26, 20, 16, 13, 14, 17, 11, 15]),
+        routeFactory(stations, '515', [29, 31, 33, 34, 35, 36]),
+        routeFactory(stations, '516', [36, 35, 34, 33, 31, 29]),
     ];
 
     /**
@@ -293,35 +296,3 @@ function loadRzhdData() {
         tickets,
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @var Promise<Station[]>
- */
-const allStations = Promise.resolve([
-    stationFactory('sdf'),
-    stationFactory('sdf'),
-    stationFactory('sdf'),
-    stationFactory('sdf'),
-])
-
-

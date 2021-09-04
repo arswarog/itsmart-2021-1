@@ -1,10 +1,17 @@
 describe('РЖД', () => {
     describe('findReisesForPassengers', () => {
+        let rzhd;
+
+        beforeEach(() => {
+            return loadRzhdData()
+                .then(data => rzhd = createRzhdSystem(data));
+        })
+
         it('Москва в Новосибирск на 19.08.2021', () => {
             // act
-            const result = findReisesForPassengers(
+            const result = rzhd.findReisesForPassengers(
                 'Москва', 'Новосибирск', '19.08.2021',
-                [stationFactory('sdfdsf')]
+                [makeStationFactory()('sdfdsf')]
             );
 
             // assert
@@ -16,7 +23,7 @@ describe('РЖД', () => {
 
         it('Екатеринбург в Ростов-на-Дону 7.08.2021', () => {
             // act
-            const result = findReisesForPassengers(
+            const result = rzhd.findReisesForPassengers(
                 'Екатеринбург', 'Ростов-на-Дону', '7.08.2021'
             );
 
@@ -29,7 +36,7 @@ describe('РЖД', () => {
 
         it('Екатеринбург в Ростов-на-Дону 6.08.2021', () => {
             // act
-            const result = findReisesForPassengers(
+            const result = rzhd.findReisesForPassengers(
                 'Екатеринбург', 'Ростов-на-Дону', '6.08.2021'
             );
 
@@ -39,9 +46,16 @@ describe('РЖД', () => {
     });
 
     describe('buyTicket', () => {
+        let rzhd;
+
+        beforeEach(() => {
+            return loadRzhdData()
+                .then(data => rzhd = createRzhdSystem(data));
+        })
+
         it('Москва в Новосибирск на 19.08.2021, маршрут 221', () => {
             // act
-            const ticket = buyTicket(
+            const ticket = rzhd.buyTicket(
                 'Москва', 'Новосибирск', '19.08.2021',
                 '221',
                 'Иванов Иван Иванович'
@@ -56,7 +70,7 @@ describe('РЖД', () => {
         });
         it('Москва в Новосибирск на 19.08.2021, маршрут 222', () => {
             // act
-            expect(() => buyTicket(
+            expect(() => rzhd.buyTicket(
                 'Москва', 'Новосибирск', '19.08.2021',
                 '222',
                 'Иванов Иван Иванович'

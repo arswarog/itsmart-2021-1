@@ -9,6 +9,6 @@
   
 2. Перенести функции в `createRzhdSystem`
   - printRoute
-  - findRoutes
+  - findReises
   - buyTicket
   

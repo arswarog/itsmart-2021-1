@@ -154,7 +154,7 @@ function findReisesForPassengers(start, end, date) {
                     return {
                         reisId: reis.id,
                         routeId: reis.routeId,
-                        route: findRouteById(reis.routeId),
+                        route: findRouteById(routes, reis.routeId),
                         date: reis.date,
                         start: startStation.name,
                         end: startStation.name,
@@ -192,17 +192,6 @@ function findStation(stationName) {
 function findStationById(stationId) {
     return allStations
         .find((item) => stationId === item.id);
-
-}
-
-/**
- * Возвращает маршрут по id
- * @param {string} routeId
- * @returns {Route} route
- */
-function findRouteById(routeId) {
-    return allRoutes
-        .find((item) => routeId === item.id);
 
 }
 
