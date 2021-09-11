@@ -15,6 +15,53 @@
             <img src="./assets/map.png" />
         </div>
 
+        <form id="findReises">
+            <div class="field">
+                <div class="title">
+                    <label for="findReises_start">
+                        Станция отправления
+                    </label>
+                </div>
+                <div class="title">
+                    Станция назначения
+                </div>
+                <div class="title">
+                    Дата
+                </div>
+                <div class="title">
+                </div>
+            </div>
+            <div class="field">
+                <div class="input">
+                    <input id="findReises_start" name="start" value="" autocomplete="off">
+                </div>
+                <div class="input">
+                    <input name="end" value="Рязань">
+                </div>
+                <div class="input">
+                    <input name="date" type="date">
+                </div>
+                <div class="input">
+                    <button type="submit">Send</button>
+                </div>
+            </div>
+            <div class="suggest">
+                <div class="input" id="findReises_suggest">
+                    <ul id="stationsSuggestList" class="hide">
+                        
+                    </ul>
+                </div>
+                <div class="input">
+                </div>
+                <div class="input">
+                </div>
+                <div class="input">
+                </div>
+            </div>
+
+        </form>
+
+
         <div class="stations">
             <ol id="stations-list"></ol>
         </div>
@@ -27,6 +74,12 @@
             <div class="id-value">
                 (id: <span data-name="id">elvis</span>)
             </div>
+        </li>
+    </template>
+
+    <template id="stationsSuggestItem">
+        <li>
+            <b data-name="name"></b>
         </li>
     </template>
 
