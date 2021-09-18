@@ -26,8 +26,9 @@ body {
     right: 0;
 }
 
-.field {
-    display: flex;
+.field ,
+.suggest {
+        display: flex;
     width: 100%;
 }
 
@@ -37,7 +38,7 @@ body {
 }
 
 
-.suggest ul {
+.field ul {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -47,11 +48,15 @@ body {
     width: 200px;
 }
 
-.suggest ul li {
+.field ul li {
     margin-left: 3px;
     list-style-type: none;
 }
 
-.suggest ul.hide {
+.field ul.hide {
     display: none;
+}
+
+.activeSuggest:hover {
+    background-color: rgb(155, 155, 255);
 }

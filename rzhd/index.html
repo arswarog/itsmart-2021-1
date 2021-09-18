@@ -36,7 +36,7 @@
                     <input id="findReises_start" name="start" value="" autocomplete="off">
                 </div>
                 <div class="input">
-                    <input name="end" value="Рязань">
+                    <input id="findReises_end" name="end" value="" autocomplete="off">
                 </div>
                 <div class="input">
                     <input name="date" type="date">
@@ -45,9 +45,14 @@
                     <button type="submit">Send</button>
                 </div>
             </div>
-            <div class="suggest">
+            <div class="field">
                 <div class="input" id="findReises_suggest">
-                    <ul id="stationsSuggestList" class="hide">
+                    <ul id="stationsSuggestList_start" class="hide">
+                        
+                    </ul>
+                </div>
+                <div class="input">
+                    <ul id="stationsSuggestList_end" class="hide">
                         
                     </ul>
                 </div>
@@ -55,9 +60,9 @@
                 </div>
                 <div class="input">
                 </div>
-                <div class="input">
-                </div>
             </div>
+
+            <div id="errors"></div>
 
         </form>
 
@@ -78,7 +83,7 @@
     </template>
 
     <template id="stationsSuggestItem">
-        <li>
+        <li class="activeSuggest">
             <b data-name="name"></b>
         </li>
     </template>
